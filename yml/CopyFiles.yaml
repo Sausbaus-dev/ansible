@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    source_host: 130.61.202.0
+    source_paths:
+      - C:\path\to\file1
+      - C:\path\to\file2
+      - C:\path\to\file3
+    target_host: 130.61.154.172
+    target_path: C:\path\to\destination\folder
+  tasks:
+    - name: Transfer files from source to local machine
+      win_copy:
+        src: "//{{ source_host }}/{{ item }}"
+        dest: "/tmp/{{ item | basename }}"
+      delegate_to: localhost
+      loop: "{{ source_paths }}"
+
+    - name: Transfer files from local machine to target
+      win_copy:
+        src: "/tmp/{{ item | basename }}"
+        dest: "//{{ target_host }}/{{ target_path }}/{{ item | basename }}"
+      delegate_to: localhost
+      loop: "{{ source_paths }}"
+
+    - name: Remove local files
+      file:
+        path: "/tmp/{{ item | basename }}"
+        state: absent
+      loop: "{{ source_paths }}"
