@@ -1,5 +1,5 @@
 ---
-- hosts: win_serv_1
+- hosts: localhost
   gather_facts: no
   vars:
     source_host: 130.61.202.0
