@@ -1,9 +1,8 @@
 - name: Copy files and folders
-  hosts:
-    - 130.61.202.0
-    - 130.61.154.172
+  hosts: 130.61.202.0
   tasks:
     - name: Copy files and folders
       win_copy:
         src: C:\TeamCity\buildAgent\work\6628867807ab0dac\WindowsService\bin
         dest: C:\deploy
+      delegate_to: 130.61.154.172
