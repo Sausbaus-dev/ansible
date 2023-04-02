@@ -3,9 +3,9 @@
   gather_facts: no
   vars:
     source_host: 130.61.202.0
-    source_path: C:\path\to\folder
+    source_path: C:\TeamCity\buildAgent\work\6628867807ab0dac\WindowsService\bin
     target_host: 130.61.154.172
-    target_path: C:\path\to\destination\folder
+    target_path: C:\deploy
   tasks:
     - name: Transfer folder from source to local machine
       win_copy:
