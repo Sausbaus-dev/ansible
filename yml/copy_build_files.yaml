@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: win_serv_1
   gather_facts: no
   vars:
     source_host: 130.61.202.0
@@ -7,21 +7,10 @@
     target_host: 130.61.154.172
     target_path: C:\deploy
   tasks:
-    - name: Transfer folder from source to local machine
+    - name: Transfer folder from source to target
       win_copy:
-        src: "//{{ source_host }}/{{ source_path }}/"
-        dest: "/tmp/"
-        force: yes
-      delegate_to: localhost
-
-    - name: Transfer folder from local machine to target
-      win_copy:
-        src: "/tmp/{{ source_path | basename }}/"
+        src: "{{ source_path }}/"
         dest: "//{{ target_host }}/{{ target_path }}/"
+        remote_src: yes
         force: yes
-      delegate_to: localhost
-
-    - name: Remove local folder
-      file:
-        path: "/tmp/{{ source_path | basename }}/"
-        state: absent
+      delegate_to: "{{ source_host }}"
