@@ -1,16 +1,11 @@
 ---
-- hosts: localhost
+- name: Copy files and folders
+  hosts: Build host
   gather_facts: no
-  vars:
-    source_host: 130.61.202.0
-    source_path: C:\TeamCity\buildAgent\work\6628867807ab0dac\WindowsService\bin
-    target_host: 130.61.154.172
-    target_path: C:\deploy
+
   tasks:
-    - name: Transfer folder from source to target
+    - name: Copy files and folders
       win_copy:
-        src: "{{ source_path }}/"
-        dest: "//{{ target_host }}/{{ target_path }}/"
-        remote_src: yes
-        force: yes
-      delegate_to: "{{ source_host }}"
+        src: C:\TeamCity\buildAgent\work\6628867807ab0dac\WindowsService\bin
+        dest: C:\deploy
+      delegate_to: Deploy host
