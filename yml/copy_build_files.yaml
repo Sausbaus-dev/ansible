@@ -1,7 +1,8 @@
 ---
 - name: Copy files and folders
-  hosts: Buildhost
-  gather_facts: no
+  hosts:
+    - 130.61.202.0
+    - 130.61.154.172
 
   tasks:
     - name: Copy files and folders
