@@ -1,8 +1,9 @@
+---
 - name: Copy folder from build_server to deploy_server
   hosts: deploy_server
   tasks:
-  - name: Copy folder
-    win_copy:
-      src: "\\build_server\c$\test1\test2"
-      dest: "C:\\"
-    delegate_to: ansible_AWX
+    - name: Copy folder
+      win_copy:
+        src: '\\build_server\c$\\test1\\test2'
+        dest: 'C:\\'
+        recurse: yes
