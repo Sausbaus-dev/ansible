@@ -1,11 +1,11 @@
----
 - name: Copy folder from build_server to deploy_server
-  hosts: win
-  gather_facts: no
-
+  hosts: deploy_server
   tasks:
-  - name: Copy folder
-    win_copy:
-      src: C:\test1\test2
-      dest: C:\
-      recurse: yes
+    - name: Copy folder
+      win_copy:
+        src: "C:\\test1\\test2"
+        dest: "C:\\"
+        remote_src: yes
+      delegate_to: "{{ item }}"
+      with_items:
+        - "{{ groups['build_server'] }}"
